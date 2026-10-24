@@ -1,0 +1,250 @@
+:root {
+  --navy: #102347;
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --light: #f3f7ff;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --green: #15803d;
+  --red: #b91c1c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: var(--light);
+  line-height: 1.65;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 16px 6%;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 3px 14px rgba(16, 35, 71, 0.05);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--navy);
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--blue), var(--navy));
+  color: white;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.topbar nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.topbar nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.topbar nav a:hover {
+  color: var(--blue);
+}
+
+.topbar nav .nav-cta,
+.nav-button {
+  display: inline-block;
+  padding: 10px 17px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--blue);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.topbar nav .nav-cta:hover,
+.nav-button:hover {
+  background: var(--blue-dark);
+  color: white;
+}
+
+.user-pill {
+  padding: 6px 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: var(--navy);
+  font-size: 0.9rem;
+}
+
+.inline {
+  display: inline;
+  margin: 0;
+}
+
+.container {
+  width: min(1100px, 90%);
+  min-height: 65vh;
+  margin: 40px auto;
+}
+
+h1, h2, h3 {
+  color: var(--navy);
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  letter-spacing: -1px;
+}
+
+p {
+  color: var(--muted);
+}
+
+a {
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button, input[type="submit"] {
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+input:not([type="hidden"]),
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 6px 0 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  background: white;
+  color: var(--text);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 3px solid #dbeafe;
+  border-color: var(--blue);
+}
+
+button:focus-visible, a:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+form:not(.inline) {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 24px rgba(16, 35, 71, 0.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 13px 15px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+th {
+  background: #eaf1ff;
+  color: var(--navy);
+}
+
+.flash-stack {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.flash {
+  padding: 13px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: white;
+}
+
+.flash.success {
+  color: var(--green);
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.flash.error, .flash.danger {
+  color: var(--red);
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.footer {
+  padding: 24px 16px;
+  border-top: 1px solid var(--border);
+  background: white;
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 650px) {
+  .topbar {
+    padding: 15px 5%;
+  }
+
+  .topbar nav {
+    justify-content: flex-start;
+  }
+
+  .container {
+    width: 92%;
+    margin: 25px auto;
+  }
+
+  form:not(.inline) {
+    padding: 18px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
