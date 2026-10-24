@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · SecureDocs{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">YOUR WORKSPACE</div><h1>Documents <span class="count">{{ documents|length }}</span></h1><p class="muted">Files you own, administer, or have been granted permission to read.</p></div><div class="role-label">{{ signed_in_user.role|upper }} ACCESS</div></div>
+<div class="dashboard-grid">
+<section class="panel upload-panel"><div class="panel-heading"><div><h2>Upload a document</h2><p class="muted">Maximum 10 MB · PDF, TXT, CSV, DOC, DOCX, PNG, JPG</p></div><span class="panel-symbol">↑</span></div>
+<form method="post" action="{{ url_for('upload_document') }}" enctype="multipart/form-data" class="upload-form">
+<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+<label>Document title<input name="title" maxlength="120" placeholder="e.g. Project proposal"></label>
+<label class="file-drop"><span class="upload-glyph">＋</span><span><strong>Choose a file</strong><small>Accepted file types only</small></span><input type="file" name="file" required accept=".pdf,.txt,.csv,.doc,.docx,.png,.jpg,.jpeg"></label>
+<button class="button primary" type="submit">Upload securely <span>→</span></button>
+</form></section>
+<section class="panel summary-panel"><div class="panel-heading"><h2>Workspace overview</h2><span class="panel-symbol">▦</span></div><div class="stat-number">{{ documents|length }}</div><p class="muted">Documents available to you</p>{% if count_users is not none %}<div class="stat-divider"></div><div class="stat-number">{{ count_users }}</div><p class="muted">Registered accounts</p>{% endif %}<div class="privacy-note">🔒 <span>Access is checked by the server for every protected document action.</span></div></section>
+</div>
+<section class="panel documents-panel"><div class="panel-heading"><div><h2>Document library</h2><p class="muted">Your accessible documents, in one place.</p></div><span class="muted small">LATEST FIRST</span></div>
+{% if documents %}
+<div class="table-wrap"><table><thead><tr><th>Document</th><th>Owner</th><th>Size</th><th>Uploaded</th><th>Actions</th></tr></thead><tbody>
+{% for doc in documents %}<tr><td><div class="doc-cell"><span class="file-icon">▤</span><span><strong>{{ doc.title }}</strong><small>{{ doc.original_name }}</small></span></div></td><td>{{ doc.owner_name }}{% if doc.owner_id == signed_in_user.id %}<span class="you-tag">YOU</span>{% endif %}</td><td>{{ (doc.size_bytes / 1024)|round(1) }} KB</td><td>{{ doc.created_at[:10] }}</td><td><div class="action-row"><a class="text-action" href="{{ url_for('download_document', doc_id=doc.id) }}">Download ↗</a>{% if signed_in_user.role == 'admin' or doc.owner_id == signed_in_user.id %}<a class="text-action" href="{{ url_for('document_permissions', doc_id=doc.id) }}">Access</a><form method="post" action="{{ url_for('delete_document', doc_id=doc.id) }}" onsubmit="return confirm('Delete this document?')"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="danger-link" type="submit">Delete</button></form>{% endif %}</div></td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}<div class="empty-state"><div class="empty-icon">▤</div><h3>No documents yet</h3><p>Upload a document to start your secure library.</p></div>{% endif %}
+</section>
+{% endblock %}

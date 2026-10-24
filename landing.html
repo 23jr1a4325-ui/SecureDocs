@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}SecureDocs — Private document workspace{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="eyebrow"><span class="dot"></span> DOCUMENT ACCESS CONTROL</div>
+  <h1>Your documents.<br><span>Your rules.</span></h1>
+  <p class="hero-copy">A secure workspace for storing documents, granting read access, and tracking important activity. Permissions are checked on the server—not just hidden in the interface.</p>
+  <div class="hero-actions"><a class="button primary" href="{{ url_for('register') }}">Get started <span>→</span></a><a class="button secondary" href="{{ url_for('login') }}">Sign in</a></div>
+  <div class="trust-row"><span>✓ Role-based access</span><span>✓ Audit trail</span><span>✓ Private file storage</span></div>
+</section>
+<section class="feature-grid">
+  <article class="feature-card"><div class="feature-icon">⌁</div><h3>Access with intent</h3><p>Owners control sharing. Admins can oversee the workspace. Other users need an explicit grant.</p></article>
+  <article class="feature-card"><div class="feature-icon">◷</div><h3>Know what happened</h3><p>Important events—including denied document access—are recorded for review.</p></article>
+  <article class="feature-card"><div class="feature-icon">▣</div><h3>Private by design</h3><p>Files live outside the public web directory and are delivered only after permission checks.</p></article>
+</section>
+<div class="notice"><strong>Demo note:</strong> Use sample documents only. This project is a learning/demo implementation, not a certified production vault.</div>
+{% endblock %}

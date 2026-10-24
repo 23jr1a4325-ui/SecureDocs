@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Access permissions · SecureDocs{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">DOCUMENT ACCESS</div><h1>Manage permissions</h1><p class="muted">Control who can read <strong>{{ document.title }}</strong>.</p></div><a class="button secondary" href="{{ url_for('dashboard') }}">← Back to documents</a></div>
+<div class="two-col">
+<section class="panel"><h2>Grant or revoke read access</h2><p class="muted">Only active users can receive a grant. A grant allows downloading; it does not allow deletion or sharing onward.</p>
+{% if users %}<form method="post" class="stack-form"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label>User<select name="user_id" required>{% for u in users %}<option value="{{ u.id }}">{{ u.username }}</option>{% endfor %}</select></label><div class="button-row"><button class="button primary" name="grant" value="yes" type="submit">Grant read access</button><button class="button secondary" name="grant" value="no" type="submit">Revoke access</button></div></form>{% else %}<p>No other active users found.</p>{% endif %}</section>
+<section class="panel"><h2>Users with access</h2>{% if grants %}<ul class="grant-list">{% for g in grants %}<li><span class="avatar">{{ g.username[0]|upper }}</span><span>{{ g.username }}</span><span class="access-badge">Can read</span></li>{% endfor %}</ul>{% else %}<p class="muted">No additional users have access.</p>{% endif %}</section>
+</div>
+{% endblock %}

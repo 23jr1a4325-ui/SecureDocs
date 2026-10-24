@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Create account · SecureDocs{% endblock %}
+{% block content %}
+<section class="auth-layout"><div class="auth-aside"><div class="eyebrow">YOUR WORKSPACE</div><h1>Share securely.<br>Stay in control.</h1><p>Create a standard user account. An administrator role cannot be selected during registration.</p></div>
+<div class="form-card"><h2>Create account</h2><p class="muted">Use a strong password of at least 12 characters.</p>
+<form method="post">
+<label>Username<input name="username" autocomplete="username" required minlength="3" maxlength="40" pattern="[A-Za-z0-9_]+" title="Letters, numbers and underscores only"></label>
+<label>Password<input type="password" name="password" autocomplete="new-password" required minlength="12"></label>
+<button class="button primary full" type="submit">Create account <span>→</span></button>
+</form><p class="form-bottom">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p></div></section>
+{% endblock %}

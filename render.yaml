@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: securedocs-demo
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: waitress-serve --host=0.0.0.0 --port $PORT app:app
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: SECRET_KEY
+        generateValue: true
+      - key: BOOTSTRAP_ADMIN_USER
+        value: admin
+      - key: BOOTSTRAP_ADMIN_PASSWORD
+        sync: false
+      - key: SECUREDOCS_DATA_DIR
+        value: /var/data
+    disk:
+      name: securedocs-data
+      mountPath: /var/data
+      sizeGB: 1

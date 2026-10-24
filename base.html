@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SecureDocs{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">S</span> SecureDocs</a>
+  <nav>
+  {% if signed_in_user %}
+    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+    {% if signed_in_user.role == 'admin' %}
+      <a href="{{ url_for('admin_users') }}">Users</a>
+      <a href="{{ url_for('audit_logs') }}">Audit log</a>
+    {% endif %}
+    <span class="user-pill">{{ signed_in_user.username }} · {{ signed_in_user.role }}</span>
+    <form class="inline" method="post" action="{{ url_for('logout') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button class="nav-button" type="submit">Sign out</button>
+    </form>
+  {% else %}
+    <a href="{{ url_for('login') }}">Sign in</a>
+    <a class="nav-cta" href="{{ url_for('register') }}">Create account</a>
+  {% endif %}
+  </nav>
+</header>
+<main class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-stack">
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="footer">SecureDocs · Private by default · Flask security demo</footer>
+</body>
+</html>
